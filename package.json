@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/27July/budget-buddy/issues"
   },
-  "homepage": "https://github.com/27July/budget-buddy#readme"
+  "homepage": "https://github.com/27July/budget-buddy#readme",
+  "devDependencies": {
+    "electron": "^37.2.0"
+  }
 }
