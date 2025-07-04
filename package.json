@@ -1,0 +1,25 @@
+{
+  "name": "budget-buddy",
+  "version": "1.0.0",
+  "description": "A desktop budgeting app",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/27July/budget-buddy.git"
+  },
+  "keywords": [
+    "electron",
+    "node",
+    "react",
+    "sqlite"
+  ],
+  "author": "Wee Zi Hao",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/27July/budget-buddy/issues"
+  },
+  "homepage": "https://github.com/27July/budget-buddy#readme"
+}
