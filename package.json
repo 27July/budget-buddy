@@ -2,7 +2,7 @@
   "name": "budget-buddy",
   "version": "1.0.0",
   "description": "A desktop budgeting app",
-  "main": "main.js",
+  "main": "electron/main.js",
   "scripts": {
     "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
