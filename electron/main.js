@@ -12,3 +12,7 @@ const createWindow = () => {
 app.whenReady().then(() => {
   createWindow()
 })
+// quitting the app when no windows are open on non-macOS platforms
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') app.quit()
+})
