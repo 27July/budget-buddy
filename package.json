@@ -2,9 +2,12 @@
   "name": "budget-buddy",
   "version": "1.0.0",
   "description": "A desktop budgeting app",
-  "main": "electron/main.js",
+  "main": "electron/dist/main.js",
   "scripts": {
-    "start": "electron .",
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "electron": "electron .",
+    "start": "npm run build && electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -24,6 +27,8 @@
   },
   "homepage": "https://github.com/27July/budget-buddy#readme",
   "devDependencies": {
-    "electron": "^37.2.0"
+    "@types/node": "^24.0.10",
+    "electron": "^37.2.0",
+    "typescript": "^5.8.3"
   }
 }
