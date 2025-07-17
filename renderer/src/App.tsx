@@ -1,7 +1,7 @@
 //import { useState } from 'react'
 import type { RootState } from "@/store/store";
 import { useSelector } from "react-redux";
-import MainLayout from "./components/layout/mainlayout";
+import MainLayout from "./components/layout/mainLayout";
 import Dashboard  from "./pages/dashboard";
 
 function App() {

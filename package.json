@@ -9,10 +9,10 @@
     "electron": "electron .",
     "start": "npm run build && electron .",
     "test": "echo \"Error: no test specified\" && exit 1",
-
     "dev": "concurrently \"npm run watch\" \"npm run dev:renderer\" \"npm run dev:electron\"",
     "dev:renderer": "cd renderer && npm run dev",
-    "dev:electron": "wait-on http://localhost:5173 && electron ."
+    "dev:electron": "wait-on http://localhost:5173 && electron .",
+    "rebuild": "electron-rebuild -f -w better-sqlite3"
   },
   "repository": {
     "type": "git",
@@ -31,10 +31,15 @@
   },
   "homepage": "https://github.com/27July/budget-buddy#readme",
   "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^24.0.10",
     "concurrently": "^9.2.0",
     "electron": "^37.2.0",
+    "electron-rebuild": "^3.2.9",
     "typescript": "^5.8.3",
     "wait-on": "^8.0.3"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.2.0"
   }
 }
