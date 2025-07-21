@@ -22,7 +22,7 @@ export default function Dashboard() {
         } else if (dateRange?.from) {
             return format(dateRange.from, "dd/MM/yyyy");
         } else {
-            return "No date-range selected";
+            return "Default Date Range: All Time";
         }};
 
   return (
