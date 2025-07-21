@@ -1,12 +1,16 @@
 import { app, BrowserWindow, ipcMain } from 'electron'
 import path from 'node:path'
+import { getTransactions } from './queries'
+import { addTransaction } from './mutation'
 
 const createWindow = () => {
   const win = new BrowserWindow({
     width: 1000,
     height: 600,
+    autoHideMenuBar: true,
     title: 'Budget Buddy',
     webPreferences: {
+      contextIsolation: true,
       preload: path.join(__dirname, 'preload.js')
     }
   })
@@ -21,7 +25,12 @@ const createWindow = () => {
 
 app.whenReady().then(() => {
   //Just setting up a function in memory, will not affect speed
-  ipcMain.handle('ping', () => 'pong')
+  ipcMain.handle('get-transactions', async (event, args) => {
+    return getTransactions(args);
+  })
+  ipcMain.handle('add-transaction', async (event, args) => {
+    return addTransaction(args);
+  })
   createWindow()
 
   app.on('activate', () => {

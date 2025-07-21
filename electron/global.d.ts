@@ -1,12 +1,27 @@
-export interface IVersions {
-  node: () => string;
-  chrome: () => string;
-  electron: () => string;
-  ping: () => Promise<string>;
-}
+// Turn the file into a module
+export {};
 
 declare global {
-  interface Window {
-    versions: IVersions;
+  // Typescript interface
+  interface TransactionFilters{
+    name?: string;
+    startDate?: string;
+    endDate?: string;
+    categoryId?: number;
+  }
+
+  interface NewTransaction {
+    name: string;
+    amount: number;
+    date: string;
+    categoryId?: number;
+    description?: string;
+  }
+  interface Transaction extends NewTransaction {
+    id: number;
   }
 }
+
+
+
+
