@@ -23,3 +23,21 @@ export function addTransaction(transaction: NewTransaction) {
         return { success: false, error: String(error) };
     }
 }
+
+export function addCategory(category: string) {
+    try {
+        const stmt = db.prepare(`
+            INSERT INTO Categories (Name)
+            VALUES (?)
+        `);
+
+        const result = stmt.run(
+            category
+        );
+
+        return { success: true, insertedId: result.lastInsertRowid };
+    } catch (error) {
+        console.error("Error adding category:", error);
+        return { success: false, error: String(error) };
+    }
+}

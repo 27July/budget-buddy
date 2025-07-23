@@ -1,4 +1,5 @@
 import { contextBridge, ipcRenderer } from 'electron'
+import { addCategory } from './mutation';
 
 const databaseAPI = {
   // Expose the getTransactions function to the renderer process
@@ -7,7 +8,15 @@ const databaseAPI = {
   },
   addTransaction: (transaction: NewTransaction) => {
     return ipcRenderer.invoke('add-transaction', transaction);
-  }
+  },
+
+  getAllCategories: () => {
+    return ipcRenderer.invoke('get-all-categories');
+  },
+
+  addCategory: (category: string) => {
+    return ipcRenderer.invoke('add-category', category);
+  },
 }
 
 

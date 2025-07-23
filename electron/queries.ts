@@ -42,3 +42,14 @@ export function getTransactions(filters: TransactionFilters = {}){
         return { success: false, error: String(error) };
     }
 }
+
+export function getAllCategories() {
+    try {
+        const stmt = db.prepare(`SELECT * FROM Categories`);
+        const results = stmt.all();
+        return { success: true, data: results };
+    } catch (error) {
+        console.error("Error getting categories:", error);
+        return { success: false, error: String(error) };
+    }
+}

@@ -1,7 +1,7 @@
 import { app, BrowserWindow, ipcMain } from 'electron'
 import path from 'node:path'
-import { getTransactions } from './queries'
-import { addTransaction } from './mutation'
+import { getTransactions, getAllCategories } from './queries'
+import { addTransaction, addCategory } from './mutation'
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -31,6 +31,13 @@ app.whenReady().then(() => {
   ipcMain.handle('add-transaction', async (event, args) => {
     return addTransaction(args);
   })
+  ipcMain.handle('get-all-categories', async () => {
+    return getAllCategories();
+  })
+  ipcMain.handle('add-category', async (event, args) => {
+    return addCategory(args);
+  })
+
   createWindow()
 
   app.on('activate', () => {
