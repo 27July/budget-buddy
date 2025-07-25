@@ -1,7 +1,7 @@
-import { app, BrowserWindow, ipcMain } from 'electron'
+import { app, BrowserWindow } from 'electron'
 import path from 'node:path'
-import { getTransactions, getAllCategories } from './queries'
-import { addTransaction, addCategory } from './mutation'
+import { registerIpcHandlers } from './ipcHandlers'
+
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -25,19 +25,7 @@ const createWindow = () => {
 
 app.whenReady().then(() => {
   //Just setting up a function in memory, will not affect speed
-  ipcMain.handle('get-transactions', async (event, args) => {
-    return getTransactions(args);
-  })
-  ipcMain.handle('add-transaction', async (event, args) => {
-    return addTransaction(args);
-  })
-  ipcMain.handle('get-all-categories', async () => {
-    return getAllCategories();
-  })
-  ipcMain.handle('add-category', async (event, args) => {
-    return addCategory(args);
-  })
-
+  registerIpcHandlers();
   createWindow()
 
   app.on('activate', () => {

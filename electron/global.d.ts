@@ -8,6 +8,10 @@ declare global {
     startDate?: string;
     endDate?: string;
     categoryId?: number;
+    sortBy?: "Name" | "Date" | "Amount" | "Category";
+    sortDir?: "ASC" | "DESC";
+    page?: number;
+    pageSize?: number;
   }
 
   interface NewTransaction {
@@ -18,6 +22,13 @@ declare global {
     description?: string;
   }
   interface Transaction extends NewTransaction {
+    id: number;
+  }
+  interface NewRecurringExpense extends NewTransaction{
+    frequency: string;
+    last_applied: string;
+  }
+  interface RecurringExpense extends NewRecurringExpense {
     id: number;
   }
 }

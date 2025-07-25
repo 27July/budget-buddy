@@ -1,5 +1,5 @@
 import { contextBridge, ipcRenderer } from 'electron'
-import { addCategory } from './mutation';
+
 
 const databaseAPI = {
   // Expose the getTransactions function to the renderer process
@@ -17,6 +17,15 @@ const databaseAPI = {
   addCategory: (category: string) => {
     return ipcRenderer.invoke('add-category', category);
   },
+  addRecurringExpense: (recurringExpense: NewRecurringExpense) => {
+    return ipcRenderer.invoke('add-recurring-expense', recurringExpense);
+  },
+  deleteTransaction: (transactionId: number) => {
+    return ipcRenderer.invoke('delete-transaction', transactionId);
+  },
+  deleteCategory: (categoryId: number) => {
+    return ipcRenderer.invoke('delete-category', categoryId);
+  }
 }
 
 
