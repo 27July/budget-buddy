@@ -106,7 +106,7 @@ export function addBudgetCategory(budgetId: number, categoryId: number) {
     }
 }
 
-export function clearBudgetCategories(budgetId: number) {
+export function clearBudgetCategory(budgetId: number) {
     try {
         const stmt = db.prepare(`
             DELETE FROM BUDGET_CATEGORIES WHERE Budget_ID = ?
