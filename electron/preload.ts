@@ -4,28 +4,28 @@ import { contextBridge, ipcRenderer } from 'electron'
 const databaseAPI = {
   // Expose the getTransactions function to the renderer process
 
-    //Queries
-    getTransactions: (filters:TransactionFilters = {}) => {
-      return ipcRenderer.invoke('get-transactions', filters);
-    },
-    getAllCategories: () => {
-      return ipcRenderer.invoke('get-all-categories');
-    },
-    getAllRecurringExpenses: () => {
-      return ipcRenderer.invoke('get-all-recurring-expenses');
-    },
-    getAllBudgets: () => {
-      return ipcRenderer.invoke('get-all-budgets');
-    },
-    getCategoriesForBudget: (budgetId: number) => {
-      return ipcRenderer.invoke('get-categories-for-budget', budgetId);
-    },
-    getTransactionById: (transactionId: number) => {
-      return ipcRenderer.invoke('get-transaction-by-id', transactionId);
-    },
-    getBudgetById: (budgetId: number) => {
-      return ipcRenderer.invoke('get-budget-by-id', budgetId);
-    },
+  //Queries
+  getTransactions: (filters:TransactionFilters = {}) => {
+    return ipcRenderer.invoke('get-transactions', filters);
+  },
+  getAllCategories: () => {
+    return ipcRenderer.invoke('get-all-categories');
+  },
+  getAllRecurringExpenses: () => {
+    return ipcRenderer.invoke('get-all-recurring-expenses');
+  },
+  getAllBudgets: () => {
+    return ipcRenderer.invoke('get-all-budgets');
+  },
+  getCategoriesForBudget: (budgetId: number) => {
+    return ipcRenderer.invoke('get-categories-for-budget', budgetId);
+  },
+  getTransactionById: (transactionId: number) => {
+    return ipcRenderer.invoke('get-transaction-by-id', transactionId);
+  },
+  getBudgetById: (budgetId: number) => {
+    return ipcRenderer.invoke('get-budget-by-id', budgetId);
+  },
 
   //Mutations
   addTransaction: (transaction: NewTransaction) => {
