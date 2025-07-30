@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import MainLayout from "./components/layout/mainLayout";
 import Dashboard  from "./pages/dashboard";
 import Transactions from "./pages/transactions";
+import About from "./pages/about";
 
 function App() {
   const currentPage = useSelector((state: RootState) => state.nav.currentPage);
@@ -12,7 +13,7 @@ function App() {
       {currentPage === "dashboard" && <Dashboard />}
       {currentPage === "transactions" && <Transactions />}
       {currentPage === "settings" && <div>Settings</div>}
-      {currentPage === "about" && <div>About</div>}
+      {currentPage === "about" && <About />}
     </MainLayout>
   );
 }

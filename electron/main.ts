@@ -11,6 +11,7 @@ const createWindow = () => {
     title: 'Budget Buddy',
     webPreferences: {
       contextIsolation: true,
+      nodeIntegration: false,
       preload: path.join(__dirname, 'preload.js')
     }
   })
@@ -26,6 +27,7 @@ const createWindow = () => {
 app.whenReady().then(() => {
   //Just setting up a function in memory, will not affect speed
   registerIpcHandlers();
+  
   createWindow()
 
   app.on('activate', () => {

@@ -1,4 +1,11 @@
-import { contextBridge, ipcRenderer } from 'electron'
+import { contextBridge, ipcRenderer, shell } from 'electron'
+console.log("✅ Preload script loaded");
+
+contextBridge.exposeInMainWorld("electron", {
+  shell: {
+    openExternal: (url: string) => shell.openExternal(url),
+  },
+});
 
 
 const databaseAPI = {
