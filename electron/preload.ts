@@ -1,11 +1,19 @@
 import { contextBridge, ipcRenderer, shell } from 'electron'
-console.log("✅ Preload script loaded");
+console.log("Preload script loaded");
 
+//Currently not working
 contextBridge.exposeInMainWorld("electron", {
   shell: {
     openExternal: (url: string) => shell.openExternal(url),
   },
 });
+
+//Proven to work in renderer process
+contextBridge.exposeInMainWorld('versions', {
+  node: () => process.versions.node,
+  chrome: () => process.versions.chrome,
+  electron: () => process.versions.electron
+})
 
 
 const databaseAPI = {
