@@ -23,4 +23,18 @@ declare global {
     categoryId?: number;
     description?: string;
   }
+  interface Transaction extends NewTransaction {
+    id: number;
+  }
+  interface TransactionFilters{
+    name?: string;
+    startDate?: string;
+    endDate?: string;
+    categoryId?: number;
+    sortBy?: "Name" | "Date" | "Amount" | "Category";
+    sortDir?: "ASC" | "DESC";
+    page?: number;
+    pageSize?: number;
+  }
 }
+

@@ -10,6 +10,7 @@ import { CalendarIcon, SearchIcon } from 'lucide-react';
 import type { DateRange } from 'react-day-picker';
 import { Badge } from '@/components/ui/badge';
 import AddTransactionDialog from '@/components/custom/addTransactionDialog';
+import { format as dfFormat } from 'date-fns';
 
 export default function Transactions() {
   const today = new Date();
@@ -21,33 +22,49 @@ export default function Transactions() {
     to: today,
   });
 
+  const [transactions, setTransactions] = React.useState<Transaction[]>([]);
   const [searchText, setSearchText] = React.useState('');
-  const [transactions] = React.useState([
-    {
-      id: 1,
-      name: 'Groceries',
-      category: 'Food',
-      description: 'NTUC FairPrice',
-      amount: 120.0,
-      date: '2025-07-16',
-    },
-    {
-      id: 2,
-      name: 'Bus Pass',
-      category: 'Transport',
-      description: 'Monthly Pass',
-      amount: 45.0,
-      date: '2025-07-14',
-    },
-    {
-      id: 3,
-      name: 'Netflix',
-      category: 'Entertainment',
-      description: 'Subscription',
-      amount: 17.99,
-      date: '2025-07-10',
-    },
-  ]);
+  const [categoryId, setCategoryId] = React.useState('');
+  const [categories, setCategories] = React.useState<{ id: number; name: string }[]>([]);
+  const [error, setError] = React.useState<string | null>(null);
+
+    React.useEffect(() => {
+    const fetchCategories = async () => {
+      const res = await window.databaseAPI.getAllCategories();
+      if (res.success) {
+        setCategories(res.data);
+      }
+    };
+    fetchCategories();
+    fetchTransactions(); // default unfiltered load
+    }, []);
+
+
+  const fetchTransactions = async(filters?: TransactionFilters) =>{
+    setError(null);
+    const res = await window.databaseAPI.getTransactions(filters);
+    if (res.success) {
+      const normalized: Transaction[] = res.data.map((r: any) => ({
+      id:          r.ID,
+      name:        r.Name,
+      amount:      Number(r.Amount),
+      date:        r.Date,
+      categoryId:  r.Category_ID ?? undefined,
+      description: r.Description ?? '',
+    }));
+      setTransactions(normalized);
+      console.log("Fetched transactions successfully")
+    } else {
+      setError(res.error ?? 'Failed to fetch transactions');
+    }
+  }
+
+  const buildFilters = (): TransactionFilters => ({
+    name: searchText || undefined,
+    startDate: dateRange?.from && dfFormat(dateRange.from, 'yyyy-MM-dd'),
+    endDate:   dateRange?.to   && dfFormat(dateRange.to, 'yyyy-MM-dd'),
+    categoryId: categoryId ? parseInt(categoryId, 10) : undefined,
+  })
 
   const formatDateRangeLabel = () => {
     if (dateRange?.from && dateRange?.to) {
@@ -68,9 +85,7 @@ export default function Transactions() {
         <div className="flex items-center gap-2">
           <Popover>
             <PopoverTrigger asChild>
-              <Button
-                variant="outline"
-              >
+              <Button variant="outline">
                 <CalendarIcon className="mr-2 h-4 w-4 align-middle" />
                 {formatDateRangeLabel()}
               </Button>
@@ -80,11 +95,9 @@ export default function Transactions() {
                 mode="range"
                 selected={dateRange}
                 onSelect={(range) => setDateRange(range ?? { from: undefined, to: undefined })}
-                numberOfMonths={2}
-              />
+                numberOfMonths={2}/>
             </PopoverContent>
           </Popover>
-
           <AddTransactionDialog/>
         </div>
       </div>
@@ -92,16 +105,33 @@ export default function Transactions() {
       {/* Search Bar */}
       <div className="flex items-center gap-2">
         <Input
-          placeholder="Search by name or category..."
+          placeholder="Search by name"
           value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
-          className="w-64"
+          onChange={(event) => setSearchText(event.target.value)}
+          className="w-64 bg-white"
         />
-        <Button variant="secondary">
+        <select
+          className="max-w-xs p-2 border rounded text-sm bg-white"
+          value={categoryId}
+          onChange={(event) => setCategoryId(event.target.value)}>
+          <option value="">All Categories</option>
+          {categories.map((categories) => (
+            <option key={categories.id} value={String(categories.id)}>
+              {categories.name}
+            </option>
+          ))}
+        </select>
+
+        {/* Button to Search */}
+        <Button variant="outline"
+        onClick={() => fetchTransactions(buildFilters())}>
           <SearchIcon className="mr-2 h-4 w-4" />
           Search
         </Button>
-      </div>
+
+        {error && <p className="text-red-500 text-sm">{error}</p>}
+      </div >
+
 
       {/* Transactions List */}
       <Card>
@@ -114,13 +144,15 @@ export default function Transactions() {
               <div>
                 <div className="flex items-center gap-2">
                   <h3 className="font-semibold text-lg">{txn.name}</h3>
-                  <Badge variant="outline" className="text-xs">{txn.category}</Badge>
+                  <Badge variant="outline" className="text-xs">{txn.categoryId ?? "Uncategorised"}</Badge>
                 </div>
                 <p className="text-sm text-muted-foreground">{txn.description}</p>
               </div>
               <div className="text-right">
-                <div className="text-green-600 font-semibold text-md">
-                  ${txn.amount.toFixed(2)}
+                <div className="text-green-600 font-semibold text-lg">
+                  {txn.amount != null
+                    ? `$${txn.amount.toFixed(2)}`
+                    : '—'}
                 </div>
                 <div className="text-sm text-muted-foreground">{txn.date}</div>
               </div>

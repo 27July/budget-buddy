@@ -115,7 +115,7 @@ export default function AddTransactionDialog({ onSuccess }: AddTransactionDialog
                     done.
                     </DialogDescription>
                 </DialogHeader>
-                <div className="grid gap-4">
+                <div className="grid gap-4, mt-4">
                     <div className="grid gap-3">
                     <Label htmlFor="name-1">Name</Label>
                     <Input id="name-1" name="name" value={name} onChange={(event) => setName(event.target.value)}/>
@@ -149,7 +149,7 @@ export default function AddTransactionDialog({ onSuccess }: AddTransactionDialog
                 </div>
                 {error && <p className="text-red-500 text-sm">{error}</p>}
 
-                <DialogFooter>
+                <DialogFooter className='mt-4'>
                     <DialogClose asChild>
                     <Button variant="outline">Cancel</Button>
                     </DialogClose>
