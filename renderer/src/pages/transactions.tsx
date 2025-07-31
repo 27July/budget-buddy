@@ -6,9 +6,10 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { CalendarIcon, PlusIcon, SearchIcon } from 'lucide-react';
+import { CalendarIcon, SearchIcon } from 'lucide-react';
 import type { DateRange } from 'react-day-picker';
 import { Badge } from '@/components/ui/badge';
+import AddTransactionDialog from '@/components/custom/addTransactionDialog';
 
 export default function Transactions() {
   const today = new Date();
@@ -69,9 +70,8 @@ export default function Transactions() {
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
-                className="text-sm font-normal bg-card text-card-foreground"
               >
-                <CalendarIcon className="mr-2 h-4 w-4" />
+                <CalendarIcon className="mr-2 h-4 w-4 align-middle" />
                 {formatDateRangeLabel()}
               </Button>
             </PopoverTrigger>
@@ -85,10 +85,7 @@ export default function Transactions() {
             </PopoverContent>
           </Popover>
 
-          <Button className="ml-2">
-            <PlusIcon className="h-4 w-4 mr-1" />
-            Add Transaction
-          </Button>
+          <AddTransactionDialog/>
         </div>
       </div>
 

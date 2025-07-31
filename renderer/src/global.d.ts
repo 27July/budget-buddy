@@ -15,4 +15,12 @@ declare global {
     };
     databaseAPI: any; // Optional, refine this if needed
   }
+
+  interface NewTransaction {
+    name: string;
+    amount: number;
+    date: string;
+    categoryId?: number;
+    description?: string;
+  }
 }
