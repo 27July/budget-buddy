@@ -6,11 +6,12 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { CalendarIcon, SearchIcon } from 'lucide-react';
+import { CalendarIcon, SearchIcon, Trash2 } from 'lucide-react';
 import type { DateRange } from 'react-day-picker';
 import { Badge } from '@/components/ui/badge';
 import AddTransactionDialog from '@/components/custom/addTransactionDialog';
 import { format as dfFormat } from 'date-fns';
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose} from '@/components/ui/dialog';
 
 export default function Transactions() {
   const today = new Date();
@@ -44,7 +45,7 @@ export default function Transactions() {
     fetchCategories();
     fetchTransactions(); // default unfiltered load
     }, []);
-    
+
     //Could probably use useEffect for more stuff but i think this is fine for now
     React.useEffect(() => {
       const filters = buildFilters();
@@ -190,6 +191,7 @@ export default function Transactions() {
                 </div>
                 <p className="text-sm text-muted-foreground">{txn.description}</p>
               </div>
+              <div className="flex items-center gap-4">
               <div className="text-right">
                 <div className="text-green-600 font-semibold text-lg">
                   {txn.amount != null
@@ -198,10 +200,42 @@ export default function Transactions() {
                 </div>
                 <div className="text-sm text-muted-foreground">{txn.date}</div>
               </div>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant='ghost' size='icon'>
+                    <Trash2 className="h-4 w-4 text-red-500" />
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Delete Transaction?!</DialogTitle>
+                    <DialogDescription>Are you <strong>VERY SURE</strong> you want to delete this transaction</DialogDescription>
+                  </DialogHeader>
+                  <DialogFooter className = 'space-x-2'>
+                    <DialogClose asChild>
+                      <Button variant='outline'>Cancel</Button>
+                    </DialogClose>
+                    <DialogClose asChild>
+                      <Button variant='destructive' onClick={async () => {
+                        const res = await window.databaseAPI.deleteTransaction(txn.id);
+                        if (res.success) {
+                          fetchTransactions(buildFilters());
+                        } else {
+                          setError(res.error ?? 'Failed to delete transaction');
+                        }
+                      }}>
+                        Confirm Delete
+                      </Button>
+                    </DialogClose>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
+            </div>
             </div>
           ))}
         </CardContent>
       </Card>
+      {/*Could have used shad-cn pagination tbh*/}
       <div className="flex justify-between items-center mt-4">
         <Button
           variant="outline"
