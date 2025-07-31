@@ -26,7 +26,13 @@ export default function Transactions() {
   const [searchText, setSearchText] = React.useState('');
   const [categoryId, setCategoryId] = React.useState('');
   const [categories, setCategories] = React.useState<{ id: number; name: string }[]>([]);
+  const [sortBy, setSortBy]     = React.useState<"Name"|"Date"|"Amount"|"Category">("Date");
+  const [sortDir, setSortDir]   = React.useState<"ASC"|"DESC">("DESC");
+  const [page, setPage]         = React.useState(1);
+  const [pageSize, setPageSize] = React.useState(10);
+
   const [error, setError] = React.useState<string | null>(null);
+  
 
     React.useEffect(() => {
     const fetchCategories = async () => {
@@ -38,6 +44,12 @@ export default function Transactions() {
     fetchCategories();
     fetchTransactions(); // default unfiltered load
     }, []);
+    
+    //Could probably use useEffect for more stuff but i think this is fine for now
+    React.useEffect(() => {
+      const filters = buildFilters();
+      fetchTransactions(filters);
+    }, [sortDir, page, pageSize]);
 
 
   const fetchTransactions = async(filters?: TransactionFilters) =>{
@@ -64,6 +76,10 @@ export default function Transactions() {
     startDate: dateRange?.from && dfFormat(dateRange.from, 'yyyy-MM-dd'),
     endDate:   dateRange?.to   && dfFormat(dateRange.to, 'yyyy-MM-dd'),
     categoryId: categoryId ? parseInt(categoryId, 10) : undefined,
+    sortBy,
+    sortDir,
+    page,
+    pageSize,
   })
 
   const formatDateRangeLabel = () => {
@@ -98,7 +114,7 @@ export default function Transactions() {
                 numberOfMonths={2}/>
             </PopoverContent>
           </Popover>
-          <AddTransactionDialog/>
+          <AddTransactionDialog onSuccess={fetchTransactions}/>
         </div>
       </div>
 
@@ -121,6 +137,32 @@ export default function Transactions() {
             </option>
           ))}
         </select>
+        <div className="flex items-center gap-2">
+          <label className="p-1 border rounded text-sm bg-white">Sort by:</label>
+          <select
+              className="p-1 border rounded text-sm bg-white"
+              value={sortBy}
+              onChange={(event) => {
+                const newSortBy = event.target.value as "Name"|"Date"|"Amount"|"Category";
+                setSortBy(newSortBy);
+                // Reset to first page after sorting
+                setPage(1);
+                fetchTransactions(buildFilters());
+              }}
+            >
+              <option value="Date">Date</option>
+              <option value="Name">Name</option>
+              <option value="Amount">Amount</option>
+              <option value="Category">Category</option>
+            </select>
+          <Button
+            onClick={() => {
+              const next = sortDir === "ASC" ? "DESC" : "ASC";
+              setSortDir(next);   // re-fetch with new sortDir
+            }} variant="outline">
+            {sortDir === "ASC" ? "↑" : "↓"}
+          </Button>
+        </div>
 
         {/* Button to Search */}
         <Button variant="outline"
@@ -160,6 +202,30 @@ export default function Transactions() {
           ))}
         </CardContent>
       </Card>
+      <div className="flex justify-between items-center mt-4">
+        <Button
+          variant="outline"
+          disabled={page <= 1}
+          onClick={() => {
+            setPage((page) => Math.max(1, page-1));
+          }}
+        >
+          Previous
+        </Button>
+        <span className="text-sm">
+          Page {page}
+        </span>
+        <Button
+          variant="outline"
+          disabled={transactions.length < pageSize}
+          onClick={() => {
+            setPage((page) => page + 1);
+          }}
+        >
+          Next
+        </Button>
+      </div>
+
     </div>
   );
 }
