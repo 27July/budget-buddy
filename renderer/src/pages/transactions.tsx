@@ -34,17 +34,22 @@ export default function Transactions() {
 
   const [error, setError] = React.useState<string | null>(null);
   
-
-    React.useEffect(() => {
+  //normalization problem
+  React.useEffect(() => {
     const fetchCategories = async () => {
       const res = await window.databaseAPI.getAllCategories();
-      if (res.success) {
-        setCategories(res.data);
+      if (res.success && Array.isArray(res.data)) {
+        const mapped = res.data.map((c: { ID: number; Name: string }) => ({
+          id: c.ID,
+          name: c.Name,
+        }));
+        setCategories(mapped);
       }
     };
+
     fetchCategories();
     fetchTransactions(); // default unfiltered load
-    }, []);
+  }, []);
 
     //Could probably use useEffect for more stuff but i think this is fine for now
     React.useEffect(() => {
@@ -52,7 +57,7 @@ export default function Transactions() {
       fetchTransactions(filters);
     }, [sortDir, page, pageSize]);
 
-
+    //normalization problem
   const fetchTransactions = async(filters?: TransactionFilters) =>{
     setError(null);
     const res = await window.databaseAPI.getTransactions(filters);
@@ -92,7 +97,6 @@ export default function Transactions() {
       return 'Default Date Range: All Time';
     }
   };
-
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -132,9 +136,9 @@ export default function Transactions() {
           value={categoryId}
           onChange={(event) => setCategoryId(event.target.value)}>
           <option value="">All Categories</option>
-          {categories.map((categories) => (
-            <option key={categories.id} value={String(categories.id)}>
-              {categories.name}
+          {categories.map((category) => (
+            <option key={category.id} value={String(category.id)}>
+              {category.name}
             </option>
           ))}
         </select>

@@ -28,17 +28,23 @@ export default function AddTransactionDialog({ onSuccess }: AddTransactionDialog
     const closeRef = React.useRef<HTMLButtonElement>(null);
 
     //Fetch categories from the database when component mounts
-    React.useEffect(() =>{
-        const fetchCategories = async()=>{
-            const res = await window.databaseAPI.getAllCategories();
-            if (res.success) {
-                setCategories(res.data);
-            } else {
-                console.error("Error fetching categories:", res.error);
-            }
-        };
-        fetchCategories();
-    }, []);
+    //Normalization problem as well
+    React.useEffect(() => {
+    const fetchCategories = async () => {
+    const res = await window.databaseAPI.getAllCategories();
+    if (res.success && Array.isArray(res.data)) {
+      const mapped = res.data.map((c: { ID: number; Name: string }) => ({
+        id: c.ID,
+        name: c.Name,
+      }));
+      setCategories(mapped);
+    } else {
+      console.error("Error fetching categories:", res.error);
+    }
+  };
+  fetchCategories();
+}, []);
+
 
 
     //Function to handle form submission
