@@ -43,5 +43,9 @@ declare global {
   numTransactions: number;
   spendingOverTime: { day: string; total: number }[];
 }
+interface category{
+  id: number;
+  name: string;
+}
 }
 
