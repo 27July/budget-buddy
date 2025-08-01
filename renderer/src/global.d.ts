@@ -39,6 +39,8 @@ declare global {
   interface dashboardStats {
   totalBudget: number;
   totalExpenses: number;
+  balance: number;
+  numTransactions: number;
 }
 }
 

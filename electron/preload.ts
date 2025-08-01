@@ -1,5 +1,4 @@
 import { contextBridge, ipcRenderer, shell } from 'electron'
-import { get } from 'http';
 console.log("Preload script loaded");
 
 //Currently not working

@@ -1,7 +1,6 @@
 import db from './db';
 import { format } from 'date-fns';
-import { getTotalBudget, getTotalExpenses } from './bigNumbers';
-import { get } from 'http';
+import { getTotalBudget, getTotalExpenses, getBalance, getNumTransactions } from './bigNumbers';
 
 export function getDashboardStats({ startDate, endDate}: {startDate: Date, endDate: Date}){
     const formattedStartDate = format(startDate, "yyyy-MM-dd");
@@ -10,8 +9,8 @@ export function getDashboardStats({ startDate, endDate}: {startDate: Date, endDa
         //Big numbers (per month)
         totalBudget: getTotalBudget(),
         totalExpenses: getTotalExpenses(formattedStartDate, formattedEndDate),
-        //balanceLeft:
-        //numTransactions:
+        balance: getBalance(formattedStartDate, formattedEndDate),
+        numTransactions: getNumTransactions(formattedStartDate, formattedEndDate),
         
 
         //Charts

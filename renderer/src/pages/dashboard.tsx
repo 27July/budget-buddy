@@ -19,8 +19,11 @@ export default function Dashboard() {
   //const formatMonth = (date: Date) => dfFormat(date, "MMM yyyy");
 
   const [stats, setStats] = React.useState<dashboardStats>({
+    //Big Numbers
     totalBudget:0,
     totalExpenses:0,
+    balance:0,
+    numTransactions:0
   });
 
   React.useEffect(() => {
@@ -28,6 +31,8 @@ export default function Dashboard() {
       setStats({
         totalBudget: data.totalBudget,
         totalExpenses: data.totalExpenses,
+        balance: data.balance,
+        numTransactions: data.numTransactions
       });
     });
   },[startMonth, endMonth]);
@@ -74,8 +79,8 @@ export default function Dashboard() {
         {[
           { label: "Budgets", value: `$${stats.totalBudget.toFixed(2)}` },
           { label: "Expenses", value: `$${stats.totalExpenses.toFixed(2)}` },
-          { label: "Balance", value: "$750" },
-          { label: "Transactions", value: "23" },
+          { label: "Balance", value: `$${stats.balance.toFixed(2)}` },
+          { label: "Transactions", value: `${stats.numTransactions}` },
         ].map((item) => (
           <Card key={item.label}>
             <CardHeader>

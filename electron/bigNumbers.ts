@@ -11,3 +11,16 @@ export function getTotalExpenses(startDate: string, endDate: string):number{
     const result = stmt.get(startDate, endDate) as { TOTAL: number } | null;
     return result?.TOTAL ?? 0;
 }
+
+export function getBalance(startDate: string, endDate: string):number{
+    const totalBudget = getTotalBudget();
+    const totalExpenses = getTotalExpenses(startDate, endDate);
+    const result = totalBudget - totalExpenses;
+    return result ?? 0;
+}
+
+export function getNumTransactions(startDate: string, endDate: string):number{
+    const stmt = db.prepare(`SELECT COUNT(*) AS TOTAL FROM TRANSACTIONS WHERE Date BETWEEN ? and ?`);
+    const result = stmt.get(startDate, endDate) as { TOTAL: number } | null;
+    return result?.TOTAL ?? 0;
+}
