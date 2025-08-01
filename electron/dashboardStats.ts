@@ -1,4 +1,3 @@
-import db from './db';
 import { format } from 'date-fns';
 import { getTotalBudget, getTotalExpenses, getBalance, getNumTransactions } from './bigNumbers';
 import { getSpendingOverTime } from './chartData';

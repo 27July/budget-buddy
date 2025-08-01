@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import MainLayout from "./components/layout/mainLayout";
 import Dashboard  from "./pages/dashboard";
 import Transactions from "./pages/transactions";
+import Settings from "./pages/settings";
 import About from "./pages/about";
 import { Toaster } from "./components/ui/sonner";
 
@@ -14,7 +15,7 @@ function App() {
     <MainLayout>
       {currentPage === "dashboard" && <Dashboard />}
       {currentPage === "transactions" && <Transactions />}
-      {currentPage === "settings" && <div>Settings</div>}
+      {currentPage === "settings" && <Settings/>}
       {currentPage === "about" && <About />}
     </MainLayout>
     <Toaster/>

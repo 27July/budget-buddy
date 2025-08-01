@@ -90,10 +90,14 @@ const databaseAPI = {
   deleteBudgetCategory: (budgetId: number, categoryId: number) => {
     return ipcRenderer.invoke('delete-budget-category', budgetId, categoryId);
   },
-
+  //Dashboard Stats
   getDashboardStats: (startDate: Date, endDate: Date) => {
     return ipcRenderer.invoke('get-dashboard-stats', { startDate, endDate });
-  }
+  },
+
+  //Settings
+  exportAllTransactions: () => ipcRenderer.invoke('export-all-transactions'),
+
 }
 
 

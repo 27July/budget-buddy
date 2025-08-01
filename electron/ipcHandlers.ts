@@ -2,7 +2,9 @@ import { getTransactions, getAllCategories, getAllRecurringExpenses, getAllBudge
 import { addTransaction, addCategory, addRecurringExpense, addBudget, addBudgetCategory, clearBudgetCategory, updateTransaction, updateCategory, updateRecurringExpense, updateBudget } from './mutation'
 import { deleteTransaction, deleteCategory, deleteRecurringExpense, deleteBudget, deleteBudgetCategory } from './deletion';
 import { getDashboardStats } from './dashboardStats';
+import exportAllTransactions from './settingFunctions/exportData';
 import { ipcMain } from 'electron';
+
 
 
 export function registerIpcHandlers() {
@@ -78,8 +80,16 @@ export function registerIpcHandlers() {
     ipcMain.handle('delete-budget-category', async (event, budgetId, categoryId) => {
         return deleteBudgetCategory(budgetId, categoryId);
       })
-
+    
+    //Dashboard Stats
     ipcMain.handle('get-dashboard-stats', async (event, { startDate, endDate }) => {
         return getDashboardStats({ startDate: new Date(startDate), endDate: new Date(endDate) });
       }) 
+    
+    //Settings
+    ipcMain.handle('export-all-transactions', async () => {
+        return await exportAllTransactions(); // from export.ts
+      });
+
+    
 }
