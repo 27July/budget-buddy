@@ -1,61 +1,79 @@
 import * as React from "react";
-import { format } from "date-fns";
-import { Calendar } from "@/components/ui/calendar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import { CalendarIcon } from "lucide-react";
-import type { DateRange } from "react-day-picker";
+import {format as dfFormat} from 'date-fns';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import "@/styles/datepicker.css";                         
+
 
 export default function Dashboard() {
-    const today = new Date();
-    const oneMonthAgo = new Date();
-    oneMonthAgo.setMonth(today.getMonth() - 1);
-    const [dateRange, setDateRange] = React.useState<DateRange | undefined>({
-        from: oneMonthAgo,
-        to: today,
+  //Default will be last month to this month
+  const [startMonth, setStartMonth] = React.useState<Date>(new Date(new Date().getFullYear(), new Date().getMonth() - 1, 1));
+  
+  const defaultEnd = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0);
+  defaultEnd.setHours(23, 59, 59, 999);
+  const [endMonth, setEndMonth] = React.useState<Date>(defaultEnd);
+
+  //Formatting
+  //const formatMonth = (date: Date) => dfFormat(date, "MMM yyyy");
+
+  const [stats, setStats] = React.useState<dashboardStats>({
+    totalBudget:0,
+    totalExpenses:0,
+  });
+
+  React.useEffect(() => {
+    window.databaseAPI.getDashboardStats(startMonth, endMonth).then((data:dashboardStats)=>{
+      setStats({
+        totalBudget: data.totalBudget,
+        totalExpenses: data.totalExpenses,
+      });
     });
+  },[startMonth, endMonth]);
 
-    const formatLabel = () => {
-        if (dateRange?.from && dateRange?.to) {
-            return `${format(dateRange.from, "dd/MM/yyyy")} – ${format(dateRange.to, "dd/MM/yyyy")}`;
-        } else if (dateRange?.from) {
-            return format(dateRange.from, "dd/MM/yyyy");
-        } else {
-            return "Default Date Range: All Time";
-        }};
 
+  
+  //Styling for date inputs (popup uses css)
+  const dateInputClass =
+  "w-[120px] px-3 py-1.5 rounded-md border border-gray-300 shadow-sm text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500";
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-semibold">Dashboard</h2>
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button
-              id="date"
-              variant="outline"
-              className="text-sm font-normal bg-card text-card-foreground"
-            >
-              <CalendarIcon className="mr-2 h-4 w-4" />
-              {formatLabel()}
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-auto p-0" align="end">
-            <Calendar
-              autoFocus
-              mode="range"
-              selected={dateRange}
-              onSelect={(range) => setDateRange(range ?? { from: undefined, to: undefined })}
-              numberOfMonths={2}
-            />
-          </PopoverContent>
-        </Popover>
+      <div className="flex items-center gap-2 flex-wrap">
+        <label className="text-sm font-medium text-muted-foreground">From:</label>
+        <DatePicker
+          selected={startMonth}
+          onChange={(date) => date && setStartMonth(date)}
+          dateFormat="MM/yyyy"
+          showMonthYearPicker
+          className={dateInputClass}
+          placeholderText="Select month"
+        />
+        <label className="text-sm font-medium text-muted-foreground">To:</label>
+        <DatePicker
+          selected={endMonth}
+          //Bug was here need to get the last day of the month properly
+          onChange={(date) => {
+          if (date) {
+            const adjustedEnd = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+            adjustedEnd.setHours(23, 59, 59, 999); // end of day
+            setEndMonth(adjustedEnd);
+          }}}
+          dateFormat="MM/yyyy"
+          showMonthYearPicker
+          className={dateInputClass}
+          placeholderText="Select month"
+        />
+      </div>
+
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: "Income", value: "$2,000" },
-          { label: "Expenses", value: "$1,250" },
+          { label: "Budgets", value: `$${stats.totalBudget.toFixed(2)}` },
+          { label: "Expenses", value: `$${stats.totalExpenses.toFixed(2)}` },
           { label: "Balance", value: "$750" },
           { label: "Transactions", value: "23" },
         ].map((item) => (

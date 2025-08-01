@@ -1,4 +1,5 @@
 import { contextBridge, ipcRenderer, shell } from 'electron'
+import { get } from 'http';
 console.log("Preload script loaded");
 
 //Currently not working
@@ -90,6 +91,10 @@ const databaseAPI = {
   deleteBudgetCategory: (budgetId: number, categoryId: number) => {
     return ipcRenderer.invoke('delete-budget-category', budgetId, categoryId);
   },
+
+  getDashboardStats: (startDate: Date, endDate: Date) => {
+    return ipcRenderer.invoke('get-dashboard-stats', { startDate, endDate });
+  }
 }
 
 

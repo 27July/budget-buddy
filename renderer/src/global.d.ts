@@ -36,5 +36,9 @@ declare global {
     page?: number;
     pageSize?: number;
   }
+  interface dashboardStats {
+  totalBudget: number;
+  totalExpenses: number;
+}
 }
 
