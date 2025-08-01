@@ -1,10 +1,10 @@
 import * as React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import {format as dfFormat} from 'date-fns';
+import SpendingOverTimeChart from "@/components/charts/spendingOverTime";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import "@/styles/datepicker.css";                         
+import "@/styles/datepicker.css";            
+             
 
 
 export default function Dashboard() {
@@ -23,7 +23,8 @@ export default function Dashboard() {
     totalBudget:0,
     totalExpenses:0,
     balance:0,
-    numTransactions:0
+    numTransactions:0,
+    spendingOverTime: []
   });
 
   React.useEffect(() => {
@@ -32,7 +33,8 @@ export default function Dashboard() {
         totalBudget: data.totalBudget,
         totalExpenses: data.totalExpenses,
         balance: data.balance,
-        numTransactions: data.numTransactions
+        numTransactions: data.numTransactions,
+        spendingOverTime: data.spendingOverTime
       });
     });
   },[startMonth, endMonth]);
@@ -95,10 +97,11 @@ export default function Dashboard() {
 
       <Card className="h-64">
         <CardHeader>
-          <CardTitle>📊 Statistics</CardTitle>
+          <CardTitle className = 'text-center text-2xl'>Charts</CardTitle>
         </CardHeader>
-        <CardContent className="flex items-center justify-center h-full text-muted-foreground">
-          Chart will go here...
+        <CardContent className="relative h-full text-muted-foreground flex gap-1">
+          <div className = 'flex-1'><h3 className = 'text-sm text-center'>Spending Over Time</h3><SpendingOverTimeChart data={stats.spendingOverTime}/></div>
+          <div className = 'flex-1'><SpendingOverTimeChart data={stats.spendingOverTime}/></div>
         </CardContent>
       </Card>
 

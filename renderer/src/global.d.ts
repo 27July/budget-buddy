@@ -41,6 +41,7 @@ declare global {
   totalExpenses: number;
   balance: number;
   numTransactions: number;
+  spendingOverTime: { day: string; total: number }[];
 }
 }
 

@@ -1,6 +1,7 @@
 import db from './db';
 import { format } from 'date-fns';
 import { getTotalBudget, getTotalExpenses, getBalance, getNumTransactions } from './bigNumbers';
+import { getSpendingOverTime } from './chartData';
 
 export function getDashboardStats({ startDate, endDate}: {startDate: Date, endDate: Date}){
     const formattedStartDate = format(startDate, "yyyy-MM-dd");
@@ -17,9 +18,9 @@ export function getDashboardStats({ startDate, endDate}: {startDate: Date, endDa
         //spendingHeatMap: //Heatmap
         //spendingPerCategory: //Pie Chart
         //spendingPerBudget: //Pie Chart
-        //spendingOverTime: //Area Chart
+        spendingOverTime: getSpendingOverTime(formattedStartDate, formattedEndDate),//Area Chart
         //expenseVSBudget: //Bar Chart
-        //spendingVelocity:
+        //spendingVelocity: //Line Chart
 
 
         //Insights
