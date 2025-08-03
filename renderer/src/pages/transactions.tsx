@@ -181,6 +181,7 @@ export default function Transactions() {
 
 
       {/* Transactions List */}
+      {/* We fit everything into the map loop here */}
       <Card>
         <CardHeader>
           <CardTitle>All Transactions</CardTitle>
