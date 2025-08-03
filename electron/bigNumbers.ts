@@ -1,9 +1,9 @@
 import db from './db';
 //TBH all these functions should have try catch error blocks but this should work for now
-export function getTotalBudget():number{
+export function getTotalBudget(numMonths: number):number{
     const stmt = db.prepare(`SELECT SUM(Amount_Allocated) AS TOTAL FROM BUDGETS`);
     const result = stmt.get() as  { TOTAL: number } | null;
-    return result?.TOTAL ?? 0;
+    return (result?.TOTAL ?? 0) * numMonths;
 }
 
 export function getTotalExpenses(startDate: string, endDate: string):number{
@@ -12,8 +12,8 @@ export function getTotalExpenses(startDate: string, endDate: string):number{
     return result?.TOTAL ?? 0;
 }
 
-export function getBalance(startDate: string, endDate: string):number{
-    const totalBudget = getTotalBudget();
+export function getBalance(startDate: string, endDate: string, numMonths: number):number{
+    const totalBudget = getTotalBudget(numMonths);
     const totalExpenses = getTotalExpenses(startDate, endDate);
     const result = totalBudget - totalExpenses;
     return result ?? 0;
