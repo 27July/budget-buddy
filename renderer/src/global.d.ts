@@ -47,5 +47,10 @@ interface category{
   id: number;
   name: string;
 }
+interface budget{
+  id: number;
+  name: string;
+  amount: number;
+}
 }
 

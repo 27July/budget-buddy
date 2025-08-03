@@ -2,13 +2,14 @@ import * as React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Settings, ChartBarStacked, Wallet, Repeat, Upload, Shield } from "lucide-react";
 import CategoryListDialog from "@/components/custom/categoriesListDialog";
+import BudgetListDialog from "@/components/custom/budgetListDialog";
 
 
 export default function SettingsPage() {
     const settings = [
-        { icon: Settings, title: "Budgets", onClick: () => {/* open modal */} },
+        { icon: Settings, title: "Budgets", onClick: () => setShowBudgets(true) },
         { icon: ChartBarStacked, title: "Categories", onClick: () => setShowCategories(true) },
-        { icon: Wallet, title: "Recurring Expenses", onClick: () => {/* route or modal */} },
+        { icon: Wallet, title: "Recurring Expenses", onClick: () => {/* route to recurring expenses */} },
         { icon: Repeat, title: "TestTest", onClick: () => {/* route */} },
         { icon: Upload, title: "Export All Transactions", onClick: async () => {
             const res = await window.databaseAPI.exportAllTransactions();
@@ -22,6 +23,7 @@ export default function SettingsPage() {
         ];
 
     const [showCategories, setShowCategories] = React.useState(false);
+    const [showBudgets, setShowBudgets] = React.useState(false);
     return (
         <div className="space-y-6">
         <div className="flex justify-between items-center">
@@ -41,6 +43,7 @@ export default function SettingsPage() {
             ))}
         </div>
         <CategoryListDialog open={showCategories} onOpenChange={setShowCategories} />
+        <BudgetListDialog open={showBudgets} onOpenChange={setShowBudgets} />
         </div>
     );
     }

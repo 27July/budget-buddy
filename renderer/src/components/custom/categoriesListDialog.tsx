@@ -9,8 +9,9 @@ import {
   DialogFooter,
   DialogClose,
 } from "@/components/ui/dialog";
-import { Trash2 } from "lucide-react";
+import { Trash2} from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { AddCategoryButton } from "./addCategoryDialog";
 
 //onOpenChange is a radix thing that flips true and false, controlling dialog state
 export default function CategoryListDialog({
@@ -21,8 +22,6 @@ export default function CategoryListDialog({
   onOpenChange: (val: boolean) => void;
 }) {
   const [categories, setCategories] = React.useState<category[]>([]);
-  
-
 
   //Can remove the any using interface maybe next time
   //Seperated this so we can call setCategories(mapped) below
@@ -59,7 +58,12 @@ const handleDelete = async (id: number) => {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-md">
         <DialogHeader>
+           <div className="flex items-center justify-between">
           <DialogTitle className='text-center'>All Categories</DialogTitle>
+          <div>
+          <AddCategoryButton fetchCategories={fetchCategories} />
+          </div>
+          </div>
         </DialogHeader>
         <div className="mt-4 space-y-2 max-h-64 overflow-y-auto">
           {categories.length === 0 ? (
@@ -67,7 +71,6 @@ const handleDelete = async (id: number) => {
           ) : (
             //We did not fit everything into the map loop here
             //We used two different approaches one with selectCategory and the other side no
-            categories.map((cat) => (
               categories.map((cat) => (
   <Dialog key={cat.id}>
     <div className="flex justify-between items-center border p-2 rounded-md text-sm bg-muted hover:bg-muted/60 transition">
@@ -100,8 +103,6 @@ const handleDelete = async (id: number) => {
             </DialogFooter>
           </DialogContent>
         </Dialog>
-      ))
-
             ))
           )}
 
