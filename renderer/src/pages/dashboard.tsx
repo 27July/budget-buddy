@@ -9,7 +9,7 @@ import "@/styles/datepicker.css";
 
 export default function Dashboard() {
   //Default will be last month to this month
-  const [startMonth, setStartMonth] = React.useState<Date>(new Date(new Date().getFullYear(), new Date().getMonth() - 1, 1));
+  const [startMonth, setStartMonth] = React.useState<Date>(new Date(new Date().getFullYear(), new Date().getMonth(), 1));
   
   const defaultEnd = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0);
   defaultEnd.setHours(23, 59, 59, 999);
