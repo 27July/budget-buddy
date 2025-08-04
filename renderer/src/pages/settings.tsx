@@ -1,16 +1,15 @@
 import * as React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Settings, ChartBarStacked, Wallet, Repeat, Upload, Shield } from "lucide-react";
+import { CircleDollarSign, ChartBarStacked, Equal, Upload } from "lucide-react";
 import CategoryListDialog from "@/components/custom/categoriesListDialog";
 import BudgetListDialog from "@/components/custom/budgetListDialog";
-
+import AssignListDialog from "@/components/custom/assignListDialog";
 
 export default function SettingsPage() {
     const settings = [
-        { icon: Settings, title: "Budgets", onClick: () => setShowBudgets(true) },
+        { icon: CircleDollarSign, title: "Budgets", onClick: () => setShowBudgets(true) },
         { icon: ChartBarStacked, title: "Categories", onClick: () => setShowCategories(true) },
-        { icon: Wallet, title: "Recurring Expenses", onClick: () => {/* route to recurring expenses */} },
-        { icon: Repeat, title: "TestTest", onClick: () => {/* route */} },
+        { icon: Equal, title: "Add Category to Budget", onClick: () => setShowAssign(true) },
         { icon: Upload, title: "Export All Transactions", onClick: async () => {
             const res = await window.databaseAPI.exportAllTransactions();
             if (res.success) {
@@ -19,11 +18,12 @@ export default function SettingsPage() {
             alert("Failed to export data: " + res.error);
             }
         }},
-        { icon: Shield, title: "TestTest2", onClick: () => {/* modal */} },
         ];
 
     const [showCategories, setShowCategories] = React.useState(false);
     const [showBudgets, setShowBudgets] = React.useState(false);
+    const [showAssign, setShowAssign] = React.useState(false);
+
     return (
         <div className="space-y-6">
         <div className="flex justify-between items-center">
@@ -37,13 +37,13 @@ export default function SettingsPage() {
                 <CardTitle className="text-base">{title}</CardTitle>
                 </CardHeader>
                 <CardContent className="text-muted-foreground text-sm">
-                {/* Optional: brief description */}
                 </CardContent>
             </Card>
             ))}
         </div>
         <CategoryListDialog open={showCategories} onOpenChange={setShowCategories} />
         <BudgetListDialog open={showBudgets} onOpenChange={setShowBudgets} />
+        <AssignListDialog open={showAssign} onOpenChange={setShowAssign} />
         </div>
     );
     }

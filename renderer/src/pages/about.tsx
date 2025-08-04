@@ -69,6 +69,7 @@ export default function About() {
           <p>Electron Version: {versions.electron}</p>
           <p>Node Version: {versions.node}</p>
           <p>Chrome Version: {versions.chrome}</p>
+          <p>Budget Buddy Release Version: 1.0</p>
         </div>
       </div>
     </div>

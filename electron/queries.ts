@@ -161,3 +161,23 @@ export function getBudgetById(budgetId: number) {
         return { success: false, error: String(error) };
     }
 }
+
+export function getAllBudgetCategoryPair(){
+    try{
+        const stmt = db.prepare(`
+            SELECT b.ID as Budget_ID,
+            b.Name as Budget_Name,
+            c.ID as Category_ID,
+            c.Name as Category_Name
+            from BUDGET_CATEGORIES bc
+            JOIN BUDGETS b ON bc.Budget_ID = b.ID
+            JOIN CATEGORY c ON bc.Category_ID = c.ID
+        `);
+        const results = stmt.all();
+        return { success: true, data: results };
+    }
+    catch(error) {
+        console.error("Error getting budget-category pairs:", error);
+        return { success: false, error: String(error) };
+    }
+}

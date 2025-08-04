@@ -1,4 +1,5 @@
 import { contextBridge, ipcRenderer, shell } from 'electron'
+import { getAllBudgetCategoryPair } from './queries';
 console.log("Preload script loaded");
 
 //Currently not working
@@ -18,7 +19,7 @@ contextBridge.exposeInMainWorld('versions', {
 
 const databaseAPI = {
   // Expose the getTransactions function to the renderer process
-
+  
   //Queries
   getTransactions: (filters:TransactionFilters = {}) => {
     return ipcRenderer.invoke('get-transactions', filters);
@@ -40,6 +41,9 @@ const databaseAPI = {
   },
   getBudgetById: (budgetId: number) => {
     return ipcRenderer.invoke('get-budget-by-id', budgetId);
+  },
+  getAllBudgetCategoryPair : () => {
+    return ipcRenderer.invoke('get-all-budget-category-pair');
   },
 
   //Mutations
