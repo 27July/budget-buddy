@@ -192,7 +192,14 @@ export default function Transactions() {
               <div>
                 <div className="flex items-center gap-2">
                   <h3 className="font-semibold text-lg">{txn.name}</h3>
-                  <Badge variant="outline" className="text-xs">{txn.categoryId ?? "Uncategorised"}</Badge>
+                  {/* We already mapped previously so lets make use of that instead of creating a new query, makes more sense I think*/}
+                  <Badge variant="outline" className="text-xs">
+                    {
+                      txn.categoryId
+                        ? (categories.find(cat => cat.id === txn.categoryId)?.name || 'Unknown Category')
+                        : 'Uncategorised'
+                    }
+                  </Badge>
                 </div>
                 <p className="text-sm text-muted-foreground">{txn.description}</p>
               </div>

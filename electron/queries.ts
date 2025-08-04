@@ -181,3 +181,18 @@ export function getAllBudgetCategoryPair(){
         return { success: false, error: String(error) };
     }
 }
+
+export function getCategoryName(categoryId: number) {
+    try {
+        const stmt = db.prepare(`SELECT Name FROM CATEGORY WHERE ID = ?`);
+        const result = stmt.get(categoryId) as {Name: string} | undefined;
+        if (result) {
+            return { success: true, data: result.Name };
+        } else {
+            return { success: false, error: "Category not found" };
+        }
+    } catch (error) {
+        console.error("Error getting category name:", error);
+        return { success: false, error: String(error) };
+    }
+}   

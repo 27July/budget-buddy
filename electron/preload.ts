@@ -1,5 +1,4 @@
 import { contextBridge, ipcRenderer, shell } from 'electron'
-import { getAllBudgetCategoryPair } from './queries';
 console.log("Preload script loaded");
 
 //Currently not working
@@ -44,6 +43,9 @@ const databaseAPI = {
   },
   getAllBudgetCategoryPair : () => {
     return ipcRenderer.invoke('get-all-budget-category-pair');
+  },
+  getCategoryName:(categoryId: number) =>{
+    return ipcRenderer.invoke('get-category-name', categoryId);
   },
 
   //Mutations

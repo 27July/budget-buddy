@@ -1,4 +1,4 @@
-import { getTransactions, getAllCategories, getAllRecurringExpenses, getAllBudgets, getCategoriesForBudget, getTransactionById, getBudgetById, getAllBudgetCategoryPair } from './queries'
+import { getTransactions, getAllCategories, getAllRecurringExpenses, getAllBudgets, getCategoriesForBudget, getTransactionById, getBudgetById, getAllBudgetCategoryPair, getCategoryName } from './queries'
 import { addTransaction, addCategory, addRecurringExpense, addBudget, addBudgetCategory, clearBudgetCategory, updateTransaction, updateCategory, updateRecurringExpense, updateBudget } from './mutation'
 import { deleteTransaction, deleteCategory, deleteRecurringExpense, deleteBudget, deleteBudgetCategory } from './deletion';
 import { getDashboardStats } from './dashboardStats';
@@ -32,6 +32,9 @@ export function registerIpcHandlers() {
       })
       ipcMain.handle('get-all-budget-category-pair', async() => {
         return getAllBudgetCategoryPair();
+      })
+      ipcMain.handle('get-category-name', async (event, categoryId) => {
+        return getCategoryName(categoryId);
       })
     
     //Mutations
