@@ -1,4 +1,4 @@
-import { useState } from "react";
+import * as React from "react";
 import {
   Dialog,
   DialogTrigger,
@@ -12,8 +12,8 @@ import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 
 export function AddCategoryButton({ fetchCategories }: { fetchCategories: () => void }) {
-  const [open, setOpen] = useState(false);
-  const [categoryName, setCategoryName] = useState("");
+  const [open, setOpen] = React.useState(false);
+  const [categoryName, setCategoryName] = React.useState("");
 
   const handleAddCategory = async () => {
     if (categoryName.trim() !== "") {

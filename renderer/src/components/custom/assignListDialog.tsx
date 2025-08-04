@@ -2,8 +2,7 @@ import * as React from "react";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
 import { Button } from "../ui/button";
 import { Trash2 } from "lucide-react";
-import { Input } from "../ui/input";
-import{ Select } from "../ui/select";
+import { AddAssignButton } from "./addAssignDialog";
 
 
 export default function AssignListDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) {
@@ -84,8 +83,9 @@ export default function AssignListDialog({ open, onOpenChange }: { open: boolean
                 <DialogHeader>
                     <div className="flex items-center justify-between">
                         <DialogTitle className='text-center'>
-                            Categories assigned to Budgets 
+                            Categories Linked to Budgets 
                         </DialogTitle>
+                        <AddAssignButton fetchBudgetsAndCategories={fetchBudgetsAndCategories} categories={categories} budgets={budgets} />
                     </div>
                 </DialogHeader>
                 <div className='mt-4 space-y-2 max-h-64 overflow-y-auto'>
