@@ -5,6 +5,7 @@ import SpendingPerCategoryChart from "@/components/charts/spendingPerCategory";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "@/styles/datepicker.css";            
+import Top5Transactions from "@/components/information/top5Transactions";
              
 
 
@@ -26,7 +27,10 @@ export default function Dashboard() {
     balance:0,
     numTransactions:0,
     spendingPerCategory:[],
-    spendingOverTime: []
+    spendingOverTime: [],
+
+    //Insights
+    top5Transactions: [],
   });
 
   React.useEffect(() => {
@@ -37,13 +41,13 @@ export default function Dashboard() {
         balance: data.balance,
         numTransactions: data.numTransactions,
         spendingPerCategory: data.spendingPerCategory,
-        spendingOverTime: data.spendingOverTime
+        spendingOverTime: data.spendingOverTime,
+        top5Transactions: data.top5Transactions,
       });
     });
   },[startMonth, endMonth]);
 
 
-  
   //Styling for date inputs (popup uses css)
   const dateInputClass =
   "w-[120px] px-3 py-1.5 rounded-md border border-gray-300 shadow-sm text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500";
@@ -100,7 +104,7 @@ export default function Dashboard() {
 
       <Card className="h-64">
         <CardHeader>
-          <CardTitle className = 'text-center text-2xl'>Charts</CardTitle>
+          <CardTitle className = 'text-center text-2xl'>📈 Charts</CardTitle>
         </CardHeader>
         <CardContent className="relative h-full text-muted-foreground flex gap-1">
           <div className = 'flex-1'><h3 className = 'text-sm text-center'>Spending Over Time</h3><SpendingOverTimeChart data={stats.spendingOverTime}/></div>
@@ -110,12 +114,10 @@ export default function Dashboard() {
 
       <Card>
         <CardHeader>
-          <CardTitle>💡 Recommendations</CardTitle>
+          <CardTitle className = 'text-center text-2xl'>💡Insights</CardTitle>
         </CardHeader>
-        <CardContent className="text-muted-foreground space-y-1">
-          <p>• Set a monthly budget</p>
-          <p>• Track spending categories</p>
-          <p>• Reduce unnecessary subscriptions</p>
+        <CardContent className="relative h-full text-muted-foreground flex gap-1">
+          <div className = 'flex-1'><h3 className = 'text-sm text-center'>Top 5 Most Expensive Transactions</h3><Top5Transactions data={stats.top5Transactions}></Top5Transactions></div>
         </CardContent>
       </Card>
 

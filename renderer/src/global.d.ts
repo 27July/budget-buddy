@@ -43,6 +43,7 @@ declare global {
   numTransactions: number;
   spendingPerCategory: { categoryName: string; total: number }[];
   spendingOverTime: { day: string; total: number }[];
+  top5Transactions: { transactionName: string; total: number }[];
 }
 interface category{
   id: number;
