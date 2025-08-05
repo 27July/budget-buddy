@@ -15,10 +15,11 @@ type Top5BarChartProps = {
   data: any[];
   labelKey: string;
   valueKey: string;
+  showDollar?: boolean;
 };
 
 //Technically its not just top 5 but any amount but im going to leave the name here for now
-export default function Top5BarChart({ data, labelKey, valueKey }: Top5BarChartProps) {
+export default function Top5BarChart({ data, labelKey, valueKey, showDollar = true }: Top5BarChartProps) {
   return (
     <ResponsiveContainer width="100%" height={250}>
       <BarChart
@@ -33,7 +34,11 @@ export default function Top5BarChart({ data, labelKey, valueKey }: Top5BarChartP
         />
         <YAxis tick={{ fontSize: 12 }} />
         <Tooltip
-          formatter={(value: number) => [`$${value.toFixed(2)}`, 'Amount']}
+          formatter={(value: number) => [
+            showDollar
+            ? [`Amount: `, `$${value.toFixed(2)}`]
+            : [value, ' Transactions']
+          ]}
           wrapperStyle={{
             backgroundColor: 'white',
             border: '1px solid #93B5C6',

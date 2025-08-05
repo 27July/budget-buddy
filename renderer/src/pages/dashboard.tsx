@@ -118,12 +118,16 @@ export default function Dashboard() {
           <CardTitle className = 'text-center text-2xl'>📈 Charts</CardTitle>
         </CardHeader>
         <CardContent className="h-64 relative text-muted-foreground flex gap-1">
-          <div className = 'flex-1'><h3 className = 'text-sm text-center'>Spending Over Time</h3><CustomLineChart data={stats.spendingOverTime}/></div>
+          <div className = 'flex-1'><h3 className = 'text-sm text-center'>Spending Over Time</h3><CustomLineChart data={stats.spendingOverTime} customColor="#CBA0FF
+
+"/></div>
           <div className = 'flex-1'><h3 className = 'text-sm text-center'>Spending Per Category</h3><CustomPieChart data={stats.spendingPerCategory}/></div>
           </CardContent>
               <CardContent className="h-64 relative text-muted-foreground flex gap-1">
-          <div className = 'flex-1'><h3 className = 'text-sm text-center'>Spending Velocity</h3><CustomLineChart data={stats.spendingVelocity}/></div>
-          <div className = 'flex-1'><h3 className = 'text-sm text-center'>Cumulative Spending</h3><CustomLineChart data={stats.cumulativeSpending}/></div>
+          <div className = 'flex-1'><h3 className = 'text-sm text-center'>Spending Velocity</h3><CustomLineChart data={stats.spendingVelocity} customColor="#FF6F61
+
+"/></div>
+          <div className = 'flex-1'><h3 className = 'text-sm text-center'>Cumulative Spending</h3><CustomLineChart data={stats.cumulativeSpending} customColor="#77DD77"/></div>
         </CardContent>
               
       </Card>
@@ -137,17 +141,8 @@ export default function Dashboard() {
           <div className = 'flex-1'><h3 className = 'text-sm text-center'>Top 5 Most Spending Days</h3><Top5BarChart data={stats.top5ExpenseDays} labelKey="day" valueKey="total"></Top5BarChart></div>
         </CardContent>
         <CardContent className="relative h-full text-muted-foreground flex gap-1">
-          <div className = 'flex-1'><h3 className = 'text-sm text-center'>Top 5 Most Frequent Categories</h3><Top5BarChart data={stats.top5FrequentCategories} labelKey="categoryName" valueKey="total"></Top5BarChart></div>
+          <div className = 'flex-1'><h3 className = 'text-sm text-center'>Top 5 Most Frequent Categories</h3><Top5BarChart data={stats.top5FrequentCategories} labelKey="categoryName" valueKey="total" showDollar={false}></Top5BarChart></div>
           <div className = 'flex-1'><h3 className = 'text-sm text-center'>Spending Per Day Of Week</h3><Top5BarChart data={stats.averageSpendingPerDayOfWeek} labelKey="dayOfWeek" valueKey="average"></Top5BarChart></div>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>📈 Trends</CardTitle>
-        </CardHeader>
-        <CardContent className="text-muted-foreground">
-          Weekly and monthly trends will appear here.
         </CardContent>
       </Card>
     </div>
