@@ -41,6 +41,7 @@ declare global {
   totalExpenses: number;
   balance: number;
   numTransactions: number;
+  spendingPerCategory: { categoryName: string; total: number }[];
   spendingOverTime: { day: string; total: number }[];
 }
 interface category{

@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import SpendingOverTimeChart from "@/components/charts/spendingOverTime";
+import SpendingPerCategoryChart from "@/components/charts/spendingPerCategory";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "@/styles/datepicker.css";            
@@ -24,6 +25,7 @@ export default function Dashboard() {
     totalExpenses:0,
     balance:0,
     numTransactions:0,
+    spendingPerCategory:[],
     spendingOverTime: []
   });
 
@@ -34,6 +36,7 @@ export default function Dashboard() {
         totalExpenses: data.totalExpenses,
         balance: data.balance,
         numTransactions: data.numTransactions,
+        spendingPerCategory: data.spendingPerCategory,
         spendingOverTime: data.spendingOverTime
       });
     });
@@ -101,7 +104,7 @@ export default function Dashboard() {
         </CardHeader>
         <CardContent className="relative h-full text-muted-foreground flex gap-1">
           <div className = 'flex-1'><h3 className = 'text-sm text-center'>Spending Over Time</h3><SpendingOverTimeChart data={stats.spendingOverTime}/></div>
-          <div className = 'flex-1'><SpendingOverTimeChart data={stats.spendingOverTime}/></div>
+          <div className = 'flex-1'><h3 className = 'text-sm text-center'>Spending Per Category</h3><SpendingPerCategoryChart data={stats.spendingPerCategory}/></div>
         </CardContent>
       </Card>
 
