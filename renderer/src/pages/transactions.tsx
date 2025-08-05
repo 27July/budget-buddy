@@ -129,10 +129,10 @@ export default function Transactions() {
           placeholder="Search by name"
           value={searchText}
           onChange={(event) => setSearchText(event.target.value)}
-          className="w-64 bg-white"
+          className="w-64 bg-white h-10"
         />
         <select
-          className="max-w-xs p-2 border rounded text-sm bg-white"
+          className="max-w-xs p-2 border rounded text-sm bg-white h-10"
           value={categoryId}
           onChange={(event) => setCategoryId(event.target.value)}>
           <option value="">All Categories</option>
@@ -143,9 +143,9 @@ export default function Transactions() {
           ))}
         </select>
         <div className="flex items-center gap-2">
-          <label className="p-1 border rounded text-sm bg-white">Sort by:</label>
+          <label className="p-2 border items-center rounded text-sm bg-white h-10">Sort by:</label>
           <select
-              className="p-1 border rounded text-sm bg-white"
+              className="p-1 border rounded text-sm bg-white h-10"
               value={sortBy}
               onChange={(event) => {
                 const newSortBy = event.target.value as "Name"|"Date"|"Amount"|"Category";
@@ -164,13 +164,13 @@ export default function Transactions() {
             onClick={() => {
               const next = sortDir === "ASC" ? "DESC" : "ASC";
               setSortDir(next);   // re-fetch with new sortDir
-            }} variant="outline">
+            }} variant="outline" className = 'h-10'>
             {sortDir === "ASC" ? "↑" : "↓"}
           </Button>
         </div>
 
         {/* Button to Search */}
-        <Button variant="outline"
+        <Button variant="outline" className = 'h-10'
         onClick={() => fetchTransactions(buildFilters())}>
           <SearchIcon className="mr-2 h-4 w-4" />
           Search
