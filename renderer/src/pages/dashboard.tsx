@@ -30,6 +30,7 @@ export default function Dashboard() {
     spendingPerCategory:[],
     spendingOverTime: [],
     spendingVelocity: [],
+    cumulativeSpending: [],
 
     //Insights
     top5Transactions: [],
@@ -48,6 +49,7 @@ export default function Dashboard() {
         spendingPerCategory: data.spendingPerCategory,
         spendingOverTime: data.spendingOverTime,
         spendingVelocity: data.spendingVelocity,
+        cumulativeSpending: data.cumulativeSpending,
         top5Transactions: data.top5Transactions,
         top5ExpenseDays: data.top5ExpenseDays,
         top5FrequentCategories: data.top5FrequentCategories,
@@ -121,6 +123,7 @@ export default function Dashboard() {
           </CardContent>
               <CardContent className="h-64 relative text-muted-foreground flex gap-1">
           <div className = 'flex-1'><h3 className = 'text-sm text-center'>Spending Velocity</h3><CustomLineChart data={stats.spendingVelocity}/></div>
+          <div className = 'flex-1'><h3 className = 'text-sm text-center'>Cumulative Spending</h3><CustomLineChart data={stats.cumulativeSpending}/></div>
         </CardContent>
               
       </Card>

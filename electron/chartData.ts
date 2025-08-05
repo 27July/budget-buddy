@@ -44,7 +44,7 @@ export function getSpendingVelocity(startDate: string, endDate: string): {day: s
 }
 
 
-export function getCategoryTrend(startDate: string, endDate: string): { day: string; category: string; total: number }[] {
+/*export function getCategoryTrend(startDate: string, endDate: string): { day: string; category: string; total: number }[] {
   const stmt = db.prepare(`
     SELECT 
     t.Date AS day,
@@ -58,4 +58,16 @@ export function getCategoryTrend(startDate: string, endDate: string): { day: str
     `);
     const result = stmt.all(startDate, endDate) as { day: string; category: string; total: number }[];
     return result;
+}*/ //WORK IN PROGRESS
+
+export function getCumulativeSpending(startDate: string, endDate: string):{day: string, total: number}[]{
+    const result = getSpendingOverTime(startDate, endDate);
+    let cumulative = 0;
+    const cumulativeResult = result.map(entry => {
+    cumulative += entry.total;
+    // ... syntax means take the old data and then we put total: to override it
+    return { ...entry, total: cumulative };
+    });
+
+  return cumulativeResult;
 }

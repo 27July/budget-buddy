@@ -26,7 +26,7 @@ export default function CustomPieChart({
           nameKey="categoryName"
           cx="50%"
           cy="50%"
-          outerRadius={50}>
+          outerRadius={100}>
           {data?.map((_, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}

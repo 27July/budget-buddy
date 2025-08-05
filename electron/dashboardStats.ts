@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
 import { getTotalBudget, getTotalExpenses, getBalance, getNumTransactions } from './bigNumbers';
-import { getSpendingOverTime, getSpendingPerCategory, getSpendingVelocity } from './chartData';
+import { getSpendingOverTime, getSpendingPerCategory, getSpendingVelocity, getCumulativeSpending } from './chartData';
 import { top5Transactions, top5ExpenseDays, top5FrequentCategories, averageSpendingPerDayOfWeek } from './informationData';
 
 export function getDashboardStats({ startDate, endDate}: {startDate: Date, endDate: Date}){
@@ -20,12 +20,13 @@ export function getDashboardStats({ startDate, endDate}: {startDate: Date, endDa
         
 
         //Charts
-        //spendingHeatMap: getSpendingHeatMap(formattedStartDate, formattedEndDate), //Heatmap
         spendingPerCategory: getSpendingPerCategory(formattedStartDate, formattedEndDate),//Pie Chart
         //spendingPerBudget: //Pie Chart
         spendingOverTime: getSpendingOverTime(formattedStartDate, formattedEndDate),//Area Chart
         //expenseVSBudget: //Bar Chart
         spendingVelocity: getSpendingVelocity(formattedStartDate, formattedEndDate), //Area Chart
+        cumulativeSpending: getCumulativeSpending(formattedStartDate, formattedEndDate), //Area Chart
+
 
 
         //Insights
