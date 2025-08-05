@@ -33,6 +33,7 @@ export default function Dashboard() {
     //Insights
     top5Transactions: [],
     top5ExpenseDays: [],
+    top5FrequentCategories: [],
   });
 
   React.useEffect(() => {
@@ -46,6 +47,7 @@ export default function Dashboard() {
         spendingOverTime: data.spendingOverTime,
         top5Transactions: data.top5Transactions,
         top5ExpenseDays: data.top5ExpenseDays,
+        top5FrequentCategories: data.top5FrequentCategories,
       });
     });
   },[startMonth, endMonth]);
@@ -122,6 +124,9 @@ export default function Dashboard() {
         <CardContent className="relative h-full text-muted-foreground flex gap-1">
           <div className = 'flex-1'><h3 className = 'text-sm text-center'>Top 5 Most Expensive Transactions</h3><Top5BarChart data={stats.top5Transactions} labelKey="transactionName" valueKey="total"></Top5BarChart></div>
           <div className = 'flex-1'><h3 className = 'text-sm text-center'>Top 5 Most Spending Days</h3><Top5BarChart data={stats.top5ExpenseDays} labelKey="day" valueKey="total"></Top5BarChart></div>
+        </CardContent>
+        <CardContent className="relative h-full text-muted-foreground flex gap-1">
+          <div className = 'flex-1'><h3 className = 'text-sm text-center'>Top 5 Most Frequent Categories</h3><Top5BarChart data={stats.top5FrequentCategories} labelKey="categoryName" valueKey="total"></Top5BarChart></div>
         </CardContent>
       </Card>
 

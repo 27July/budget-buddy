@@ -6,12 +6,15 @@ import {
   YAxis,
   Tooltip,
   CartesianGrid,
+  Cell,
 } from 'recharts';
+
+const COLORS = ['#93B5C6', '#C9CCD5', '#E4D8DC', '#FFE3E3', '#A1C6EA'];
 
 type Top5BarChartProps = {
   data: any[];
-  labelKey: string; // e.g., "Name" or "transactionName"
-  valueKey: string; // e.g., "total" or "amount"
+  labelKey: string;
+  valueKey: string;
 };
 
 export default function Top5BarChart({ data, labelKey, valueKey }: Top5BarChartProps) {
@@ -41,7 +44,11 @@ export default function Top5BarChart({ data, labelKey, valueKey }: Top5BarChartP
           labelStyle={{ fontSize: '12px', color: '#333' }}
           itemStyle={{ fontSize: '12px', color: '#93B5C6' }}
         />
-        <Bar dataKey={valueKey} fill="#93B5C6" radius={[4, 4, 0, 0]} />
+        <Bar dataKey={valueKey} radius={[4, 4, 0, 0]}>
+          {data.map((_, index) => (
+            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+          ))}
+        </Bar>
       </BarChart>
     </ResponsiveContainer>
   );

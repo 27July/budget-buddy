@@ -1,7 +1,7 @@
 import { format } from 'date-fns';
 import { getTotalBudget, getTotalExpenses, getBalance, getNumTransactions } from './bigNumbers';
 import { getSpendingOverTime, getSpendingPerCategory } from './chartData';
-import { top5Transactions, top5ExpenseDays } from './informationData';
+import { top5Transactions, top5ExpenseDays, top5FrequentCategories } from './informationData';
 
 export function getDashboardStats({ startDate, endDate}: {startDate: Date, endDate: Date}){
     const formattedStartDate = format(startDate, "yyyy-MM-dd");
@@ -30,12 +30,9 @@ export function getDashboardStats({ startDate, endDate}: {startDate: Date, endDa
 
         //Insights
         top5Transactions: top5Transactions(formattedStartDate, formattedEndDate), //Bar Chart
-        //top5FrequentCategories: //List
         top5ExpenseDays: top5ExpenseDays(formattedStartDate, formattedEndDate), // Bar Chart
-        //commonKeywords: //
-
-
-
+        top5FrequentCategories: top5FrequentCategories(formattedStartDate, formattedEndDate), // List
+        //averageSpendingPerDayOfWeek: averageSpendingPerDayOfWeek(formattedStartDate, formattedEndDate), // List
 
     }
 
