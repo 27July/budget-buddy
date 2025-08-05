@@ -43,6 +43,7 @@ declare global {
   numTransactions: number;
   spendingPerCategory: { categoryName: string; total: number }[];
   spendingOverTime: { day: string; total: number }[];
+  spendingVelocity: { day: string; total: number }[];
   top5Transactions: { transactionName: string; total: number }[];
   top5ExpenseDays: { day: string; total: number }[];
   top5FrequentCategories: { categoryName: string; total: number }[];
@@ -57,5 +58,7 @@ interface budget{
   name: string;
   amount: number;
 }
+
+
 }
 

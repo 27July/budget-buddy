@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import SpendingOverTimeChart from "@/components/charts/spendingOverTime";
-import SpendingPerCategoryChart from "@/components/charts/spendingPerCategory";
+import CustomLineChart from "@/components/charts/customLineChart";
+import CustomPieChart from "@/components/charts/customPieChart";
 import Top5BarChart from "@/components/information/top5BarChart";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -29,6 +29,7 @@ export default function Dashboard() {
     numTransactions:0,
     spendingPerCategory:[],
     spendingOverTime: [],
+    spendingVelocity: [],
 
     //Insights
     top5Transactions: [],
@@ -46,6 +47,7 @@ export default function Dashboard() {
         numTransactions: data.numTransactions,
         spendingPerCategory: data.spendingPerCategory,
         spendingOverTime: data.spendingOverTime,
+        spendingVelocity: data.spendingVelocity,
         top5Transactions: data.top5Transactions,
         top5ExpenseDays: data.top5ExpenseDays,
         top5FrequentCategories: data.top5FrequentCategories,
@@ -109,14 +111,18 @@ export default function Dashboard() {
         ))}
       </div>
 
-      <Card className="h-64">
+      <Card>
         <CardHeader>
           <CardTitle className = 'text-center text-2xl'>📈 Charts</CardTitle>
         </CardHeader>
-        <CardContent className="relative h-full text-muted-foreground flex gap-1">
-          <div className = 'flex-1'><h3 className = 'text-sm text-center'>Spending Over Time</h3><SpendingOverTimeChart data={stats.spendingOverTime}/></div>
-          <div className = 'flex-1'><h3 className = 'text-sm text-center'>Spending Per Category</h3><SpendingPerCategoryChart data={stats.spendingPerCategory}/></div>
+        <CardContent className="h-64 relative text-muted-foreground flex gap-1">
+          <div className = 'flex-1'><h3 className = 'text-sm text-center'>Spending Over Time</h3><CustomLineChart data={stats.spendingOverTime}/></div>
+          <div className = 'flex-1'><h3 className = 'text-sm text-center'>Spending Per Category</h3><CustomPieChart data={stats.spendingPerCategory}/></div>
+          </CardContent>
+              <CardContent className="h-64 relative text-muted-foreground flex gap-1">
+          <div className = 'flex-1'><h3 className = 'text-sm text-center'>Spending Velocity</h3><CustomLineChart data={stats.spendingVelocity}/></div>
         </CardContent>
+              
       </Card>
 
       <Card>

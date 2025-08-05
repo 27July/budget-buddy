@@ -12,7 +12,7 @@ const COLORS = [
   '#F7CAC9', '#D6D1B1', '#B8E0D2', '#B5EAD7', '#FFDAC1',
 ];
 
-export default function SpendingPerCategoryChart({
+export default function CustomPieChart({
   data,
 }: {
   data: { categoryName: string; total: number }[];

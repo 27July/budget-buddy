@@ -1,4 +1,3 @@
-// src/components/SpendingOverTimeChart.tsx
 import {
   ResponsiveContainer,
   AreaChart,
@@ -10,7 +9,7 @@ import {
 } from 'recharts';
 
 
-export default function SpendingOverTimeChart({ data }: { data: { day: string, total: number }[] }) {
+export default function CustomLineChart({ data }: { data: { day: string, total: number }[] }) {
   return (
     <ResponsiveContainer width="100%" height="100%">
       <AreaChart
