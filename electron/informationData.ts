@@ -35,3 +35,23 @@ export function top5FrequentCategories(startDate: string, endDate: string):{cate
     const result = stmt.all(startDate, endDate) as { categoryName: string, total: number }[];
     return result;
 }
+
+export function averageSpendingPerDayOfWeek(startDate: string, endDate: string):{dayOfWeek: string, average: number}[]{
+    const stmt = db.prepare(`
+        SELECT 
+            CASE strftime('%w', Date)
+                WHEN '0' THEN 'Sunday'
+                WHEN '1' THEN 'Monday'
+                WHEN '2' THEN 'Tuesday'
+                WHEN '3' THEN 'Wednesday'
+                WHEN '4' THEN 'Thursday'
+                WHEN '5' THEN 'Friday'
+                WHEN '6' THEN 'Saturday'
+            END as dayOfWeek, ROUND(AVG(Amount),2) as average
+            FROM TRANSACTIONS
+            WHERE Date BETWEEN ? AND ?
+            GROUP BY dayOfWeek
+            ORDER BY strftime('%w', Date)`)
+    const result = stmt.all(startDate, endDate) as { dayOfWeek: string, average: number }[];
+    return result;
+}

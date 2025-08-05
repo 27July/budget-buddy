@@ -17,20 +17,19 @@ type Top5BarChartProps = {
   valueKey: string;
 };
 
+//Technically its not just top 5 but any amount but im going to leave the name here for now
 export default function Top5BarChart({ data, labelKey, valueKey }: Top5BarChartProps) {
   return (
     <ResponsiveContainer width="100%" height={250}>
       <BarChart
         data={data}
-        margin={{ top: 10, right: 20, left: -10, bottom: 40 }}
+        margin={{ top: 10, right: 20, left: -10, bottom: 0 }}
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis
           dataKey={labelKey}
           tick={{ fontSize: 12 }}
           interval={0}
-          angle={-30}
-          textAnchor="end"
         />
         <YAxis tick={{ fontSize: 12 }} />
         <Tooltip

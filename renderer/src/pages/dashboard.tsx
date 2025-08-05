@@ -34,6 +34,7 @@ export default function Dashboard() {
     top5Transactions: [],
     top5ExpenseDays: [],
     top5FrequentCategories: [],
+    averageSpendingPerDayOfWeek: [],
   });
 
   React.useEffect(() => {
@@ -48,6 +49,7 @@ export default function Dashboard() {
         top5Transactions: data.top5Transactions,
         top5ExpenseDays: data.top5ExpenseDays,
         top5FrequentCategories: data.top5FrequentCategories,
+        averageSpendingPerDayOfWeek: data.averageSpendingPerDayOfWeek,
       });
     });
   },[startMonth, endMonth]);
@@ -127,6 +129,7 @@ export default function Dashboard() {
         </CardContent>
         <CardContent className="relative h-full text-muted-foreground flex gap-1">
           <div className = 'flex-1'><h3 className = 'text-sm text-center'>Top 5 Most Frequent Categories</h3><Top5BarChart data={stats.top5FrequentCategories} labelKey="categoryName" valueKey="total"></Top5BarChart></div>
+          <div className = 'flex-1'><h3 className = 'text-sm text-center'>Spending Per Day Of Week</h3><Top5BarChart data={stats.averageSpendingPerDayOfWeek} labelKey="dayOfWeek" valueKey="average"></Top5BarChart></div>
         </CardContent>
       </Card>
 

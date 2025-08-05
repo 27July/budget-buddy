@@ -46,6 +46,7 @@ declare global {
   top5Transactions: { transactionName: string; total: number }[];
   top5ExpenseDays: { day: string; total: number }[];
   top5FrequentCategories: { categoryName: string; total: number }[];
+  averageSpendingPerDayOfWeek: { dayOfWeek: string; average: number }[];
 }
 interface category{
   id: number;
