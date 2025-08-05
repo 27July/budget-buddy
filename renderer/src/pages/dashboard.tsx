@@ -2,10 +2,11 @@ import * as React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import SpendingOverTimeChart from "@/components/charts/spendingOverTime";
 import SpendingPerCategoryChart from "@/components/charts/spendingPerCategory";
+import Top5BarChart from "@/components/information/top5BarChart";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "@/styles/datepicker.css";            
-import Top5Transactions from "@/components/information/top5Transactions";
+
              
 
 
@@ -31,6 +32,7 @@ export default function Dashboard() {
 
     //Insights
     top5Transactions: [],
+    top5ExpenseDays: [],
   });
 
   React.useEffect(() => {
@@ -43,6 +45,7 @@ export default function Dashboard() {
         spendingPerCategory: data.spendingPerCategory,
         spendingOverTime: data.spendingOverTime,
         top5Transactions: data.top5Transactions,
+        top5ExpenseDays: data.top5ExpenseDays,
       });
     });
   },[startMonth, endMonth]);
@@ -117,7 +120,8 @@ export default function Dashboard() {
           <CardTitle className = 'text-center text-2xl'>💡Insights</CardTitle>
         </CardHeader>
         <CardContent className="relative h-full text-muted-foreground flex gap-1">
-          <div className = 'flex-1'><h3 className = 'text-sm text-center'>Top 5 Most Expensive Transactions</h3><Top5Transactions data={stats.top5Transactions}></Top5Transactions></div>
+          <div className = 'flex-1'><h3 className = 'text-sm text-center'>Top 5 Most Expensive Transactions</h3><Top5BarChart data={stats.top5Transactions} labelKey="transactionName" valueKey="total"></Top5BarChart></div>
+          <div className = 'flex-1'><h3 className = 'text-sm text-center'>Top 5 Most Spending Days</h3><Top5BarChart data={stats.top5ExpenseDays} labelKey="day" valueKey="total"></Top5BarChart></div>
         </CardContent>
       </Card>
 
