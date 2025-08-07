@@ -9,7 +9,28 @@ Budget-Buddy is a desktop application designed for local expense tracking. It fe
 ## Technology and Tools:
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=plastic&logo=typescript&logoColor=white)![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=plastic&logo=tailwind-css&logoColor=white)![React](https://img.shields.io/badge/react-%2320232a.svg?style=plastic&logo=react&logoColor=%2361DAFB)![Electron.js](https://img.shields.io/badge/Electron-191970?style=plastic&logo=Electron&logoColor=white)![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=plastic&logo=sqlite&logoColor=white)![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=plastic&logo=redux&logoColor=white)
 
-## Gallery: 
+
+## Gallery:
+<h3>Budget, Category and Transactions</h3>
+<p align="left">
+  <img src="gallery/budgetExample1.png" alt="Budget Example" width="300" style="margin-right: 10px;" />
+  <img src="gallery/categoryExample1.png" alt="Category Example" width="300" />
+  <img src="gallery/transactionExample1.png" alt="Transaction Example" width="300" />
+</p>
+
+<h3>Dashboard</h3>
+<p align="left">
+  <img src="gallery/dashboardExample1.png" alt="Dashboard 1" width="300" style="margin-right: 10px;" />
+  <img src="gallery/dashboardExample2.png" alt="Dashboard 2" width="300" style="margin-right: 10px;" />
+  <img src="gallery/dashboardExample3.png" alt="Dashboard 3" width="300" />
+</p>
+
+<h3>Export and Linking</h3>
+<p align="left">
+  <img src="gallery/exportCSVExample1.png" alt="Export CSV" width="300" style="margin-right: 10px;" />
+  <img src="gallery/linkBudgetCategoryExample1.png" alt="Link Budget" width="300" style="margin-right: 10px;" />
+</p>
+
 
 
 ## Running the Application:
