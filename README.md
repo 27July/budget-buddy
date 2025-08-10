@@ -89,3 +89,4 @@ _This roadmap outlines planned development goals. Timelines are flexible and dep
 [![GitHub](https://img.shields.io/badge/GitHub-27July-181717?logo=github&logoColor=white)](https://github.com/27July)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Wee%20Zi%20Hao-%230077B5?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/wee-zi-hao)
 [![Email](https://img.shields.io/badge/Email-weezihao@gmail.com-D14836?logo=gmail&logoColor=white)](mailto:weezihao@gmail.com)
+[![Personal Site](https://img.shields.io/badge/Website-Wee%20Zi%20Hao-1E40AF?style=plastic&logo=aboutdotme&logoColor=white)](https://27july.github.io/)
