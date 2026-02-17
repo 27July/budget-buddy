@@ -3,16 +3,13 @@
 ## About:
 Budget-Buddy is a desktop application designed for local expense tracking. It features interactive charts and visualisations to help users better understand and manage their finances. A full list of features that we provide are avaliable [here](#features).
 
-## Project Status:
-Initial version of this project is currently operational and ready for use. Ongoing feature additions and optimisations, and full documentation release are still in progress. If your interested in following this project, click [here](#roadmap) to see our future development plans.
-
 ## Technology and Tools:
-[![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=plastic&logo=typescript&logoColor=white)](https://www.typescriptlang.org/) 
-[![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=plastic&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/) 
-[![React](https://img.shields.io/badge/react-%2320232a.svg?style=plastic&logo=react&logoColor=%2361DAFB)](https://react.dev/) 
-[![Electron.js](https://img.shields.io/badge/Electron-191970?style=plastic&logo=Electron&logoColor=white)](https://www.electronjs.org/) 
-[![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=plastic&logo=sqlite&logoColor=white)](https://www.sqlite.org/) 
-[![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=plastic&logo=redux&logoColor=white)](https://redux.js.org/)
+[![TypeScript](https://img.shields.io/badge/Typescript-%23007ACC.svg?logo=typescript&logoColor=white)](https://www.typescriptlang.org/) 
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-%2338B2AC.svg?&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/) 
+[![React](https://img.shields.io/badge/React-%2320232a.svg?logo=react&logoColor=%2361DAFB)](https://react.dev/) 
+[![Electron.js](https://img.shields.io/badge/Electron-191970?logo=Electron&logoColor=white)](https://www.electronjs.org/) 
+[![SQLite](https://img.shields.io/badge/SQLite-%2307405e.svg?logo=sqlite&logoColor=white)](https://www.sqlite.org/) 
+[![Redux](https://img.shields.io/badge/Redux-%23593d88.svg?logo=redux&logoColor=white)](https://redux.js.org/)
 
 
 ## Gallery:
@@ -74,4 +71,4 @@ npm run dev
 [![GitHub](https://img.shields.io/badge/GitHub-27July-181717?logo=github&logoColor=white)](https://github.com/27July)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Wee%20Zi%20Hao-%230077B5?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/wee-zi-hao)
 [![Email](https://img.shields.io/badge/Email-weezihao@gmail.com-D14836?logo=gmail&logoColor=white)](mailto:weezihao@gmail.com)
-[![Personal Site](https://img.shields.io/badge/Website-Wee%20Zi%20Hao-1E40AF?style=plastic&logo=aboutdotme&logoColor=white)](https://27july.github.io/)
+[![Personal Site](https://img.shields.io/badge/Website-Wee%20Zi%20Hao-1E40AF?logo=aboutdotme&logoColor=white)](https://27july.github.io/)
