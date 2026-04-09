@@ -5,6 +5,9 @@
   "main": "electron/dist/main.js",
   "scripts": {
     "build": "tsc",
+    "build:renderer": "npm --prefix renderer run build",
+    "build:app": "npm run build && npm run build:renderer",
+    "dist": "npm run build:app && electron-builder --win nsis",
     "watch": "tsc --watch",
     "electron": "electron .",
     "start": "npm run build && electron .",
@@ -31,12 +34,13 @@
   },
   "homepage": "https://github.com/27July/budget-buddy#readme",
   "devDependencies": {
+    "@electron/rebuild": "^4.0.0",
     "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^24.0.10",
     "@types/papaparse": "^5.3.16",
     "concurrently": "^9.2.0",
     "electron": "^41.2.0",
-    "@electron/rebuild": "^4.0.0",
+    "electron-builder": "^26.8.1",
     "typescript": "^5.8.3",
     "wait-on": "^8.0.3"
   },
@@ -44,5 +48,22 @@
     "better-sqlite3": "^12.8.0",
     "date-fns": "^4.1.0",
     "papaparse": "^5.5.3"
+  },
+  "build": {
+    "appId": "com.budgetbuddy.app",
+    "productName": "Budget Buddy",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "electron/dist/**/*",
+      "renderer/dist/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "renderer/public/logo.ico"
+    }
   }
 }

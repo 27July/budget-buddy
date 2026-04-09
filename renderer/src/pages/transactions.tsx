@@ -30,7 +30,7 @@ export default function Transactions() {
   const [sortBy, setSortBy]     = React.useState<"Name"|"Date"|"Amount"|"Category">("Date");
   const [sortDir, setSortDir]   = React.useState<"ASC"|"DESC">("DESC");
   const [page, setPage]         = React.useState(1);
-  const [pageSize, setPageSize] = React.useState(10);
+  const [pageSize] = React.useState(10);
 
   const [error, setError] = React.useState<string | null>(null);
   
