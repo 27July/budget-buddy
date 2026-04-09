@@ -2,19 +2,40 @@ import { app, BrowserWindow } from 'electron'
 import path from 'node:path'
 import { registerIpcHandlers } from './ipcHandlers'
 
+if (process.platform === 'win32') {
+  app.setAppUserModelId('com.budgetbuddy.app')
+}
+
 
 const createWindow = () => {
+  const iconPath = app.isPackaged
+    ? path.join(__dirname, '../../renderer/dist/logo.ico')
+    : path.join(__dirname, '../../renderer/public/logo.ico')
+
+  const fallbackIconPath = app.isPackaged
+    ? path.join(__dirname, '../../renderer/dist/logo.png')
+    : path.join(__dirname, '../../renderer/public/logo.png')
+
   const win = new BrowserWindow({
     width: 1000,
     height: 600,
     autoHideMenuBar: true,
     title: 'Budget Buddy',
+    icon: process.platform === 'win32' ? iconPath : fallbackIconPath,
     webPreferences: {
       contextIsolation: true,
       nodeIntegration: false,
       preload: path.join(__dirname, 'preload.js')
     }
   })
+
+  if (process.platform === 'win32') {
+    win.setAppDetails({
+      appId: 'com.budgetbuddy.app',
+      appIconPath: iconPath,
+    })
+  }
+
   const isDev = !app.isPackaged
   if (isDev) {
     win.loadURL('http://localhost:5173/');
